@@ -924,7 +924,9 @@ void WebViewProxy::devToolsAgentHostDetached()
 
 void WebViewProxy::didInterceptMessage()
 {
-    d_delegate->didInterceptMessage(this);
+    if (d_delegate) {
+        d_delegate->didInterceptMessage(this);
+    }
 }
 
 }  // close namespace blpwtk2
