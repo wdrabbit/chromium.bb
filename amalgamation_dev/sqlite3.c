@@ -1173,7 +1173,7 @@ extern "C" {
 */
 #define SQLITE_VERSION        "3.34.0"
 #define SQLITE_VERSION_NUMBER 3034000
-#define SQLITE_SOURCE_ID      "2020-12-01 16:14:00 a26b6597e3ae272231b96f9982c3bcc17ddec2f2b6eb4df06a224b91089fed5b"
+#define SQLITE_SOURCE_ID      "2020-12-01 16:14:00 a26b6597e3ae272231b96f9982c3bcc17ddec2f2b6eb4df06a224b91089falt1"
 
 /*
 ** CAPI3REF: Run-Time Library Version Numbers
@@ -19312,7 +19312,6 @@ SQLITE_PRIVATE int sqlite3WindowCompare(Parse*, Window*, Window*, int);
 SQLITE_PRIVATE void sqlite3WindowCodeInit(Parse*, Select*);
 SQLITE_PRIVATE void sqlite3WindowCodeStep(Parse*, Select*, WhereInfo*, int, int);
 SQLITE_PRIVATE int sqlite3WindowRewrite(Parse*, Select*);
-SQLITE_PRIVATE int sqlite3ExpandSubquery(Parse*, struct SrcList_item*);
 SQLITE_PRIVATE void sqlite3WindowUpdate(Parse*, Window*, Window*, FuncDef*);
 SQLITE_PRIVATE Window *sqlite3WindowDup(sqlite3 *db, Expr *pOwner, Window *p);
 SQLITE_PRIVATE Window *sqlite3WindowListDup(sqlite3 *db, Window *p);
@@ -20050,6 +20049,7 @@ SQLITE_PRIVATE void sqlite3ExpirePreparedStatements(sqlite3*, int);
 SQLITE_PRIVATE void sqlite3CodeRhsOfIN(Parse*, Expr*, int);
 SQLITE_PRIVATE int sqlite3CodeSubselect(Parse*, Expr*);
 SQLITE_PRIVATE void sqlite3SelectPrep(Parse*, Select*, NameContext*);
+SQLITE_PRIVATE int sqlite3ExpandSubquery(Parse*, struct SrcList_item*);
 SQLITE_PRIVATE void sqlite3SelectWrongNumTermsError(Parse *pParse, Select *p);
 SQLITE_PRIVATE int sqlite3MatchEName(
   const struct ExprList_item*,
