@@ -1173,7 +1173,7 @@ extern "C" {
 */
 #define SQLITE_VERSION        "3.34.0"
 #define SQLITE_VERSION_NUMBER 3034000
-#define SQLITE_SOURCE_ID      "2020-12-01 16:14:00 a26b6597e3ae272231b96f9982c3bcc17ddec2f2b6eb4df06a224b91089falt1"
+#define SQLITE_SOURCE_ID      "2020-12-01 16:14:00 b7738010bc8ef02ba84820368e557306390a33c38adaa5c7703154bae3edalt1"
 
 /*
 ** CAPI3REF: Run-Time Library Version Numbers
@@ -135416,7 +135416,9 @@ static void explainSimpleCount(
 static int havingToWhereExprCb(Walker *pWalker, Expr *pExpr){
   if( pExpr->op!=TK_AND ){
     Select *pS = pWalker->u.pSelect;
-    if( sqlite3ExprIsConstantOrGroupBy(pWalker->pParse, pExpr, pS->pGroupBy) ){
+    if( sqlite3ExprIsConstantOrGroupBy(pWalker->pParse, pExpr, pS->pGroupBy)
+     && ExprAlwaysFalse(pExpr)==0
+    ){
       sqlite3 *db = pWalker->pParse->db;
       Expr *pNew = sqlite3Expr(db, TK_INTEGER, "1");
       if( pNew ){
@@ -226819,7 +226821,7 @@ static void fts5SourceIdFunc(
 ){
   assert( nArg==0 );
   UNUSED_PARAM2(nArg, apUnused);
-  sqlite3_result_text(pCtx, "fts5: 2020-12-01 16:14:00 a26b6597e3ae272231b96f9982c3bcc17ddec2f2b6eb4df06a224b91089fed5b", -1, SQLITE_TRANSIENT);
+  sqlite3_result_text(pCtx, "fts5: 2020-12-01 16:14:00 0000000000000000000000000000000000000000000000000000000000000000", -1, SQLITE_TRANSIENT);
 }
 
 /*
@@ -231745,9 +231747,9 @@ SQLITE_API int sqlite3_stmt_init(
 #endif /* !defined(SQLITE_CORE) || defined(SQLITE_ENABLE_STMTVTAB) */
 
 /************** End of stmt.c ************************************************/
-#if __LINE__!=231748
+#if __LINE__!=231750
 #undef SQLITE_SOURCE_ID
-#define SQLITE_SOURCE_ID      "2020-12-01 16:14:00 a26b6597e3ae272231b96f9982c3bcc17ddec2f2b6eb4df06a224b91089falt2"
+#define SQLITE_SOURCE_ID      "2020-12-01 16:14:00 b7738010bc8ef02ba84820368e557306390a33c38adaa5c7703154bae3edalt2"
 #endif
 /* Return the source-id for this library */
 SQLITE_API const char *sqlite3_sourceid(void){ return SQLITE_SOURCE_ID; }
