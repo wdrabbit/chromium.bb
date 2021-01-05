@@ -161,6 +161,7 @@ class BrowserContextImpl final : public base::RefCounted<BrowserContextImpl>
     // patch section: web cache
     void clearWebCache() override;
 
+    std::size_t getDiscardableSharedMemoryBytes() override;
 
 
     // content::BrowserContext overrides

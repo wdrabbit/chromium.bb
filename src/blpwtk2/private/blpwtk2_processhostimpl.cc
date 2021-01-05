@@ -43,6 +43,7 @@
 #include <base/command_line.h>
 #include <base/task/post_task.h>
 #include <base/task/task_traits.h>
+#include <components/discardable_memory/service/discardable_shared_memory_manager.h>
 #include <content/public/browser/browser_task_traits.h>
 #include <content/public/browser/browser_thread.h>
 #include <ui/gfx/win/rendering_window_manager.h>
@@ -552,6 +553,15 @@ void ProcessHostImpl::clearBypassRules() {
 
 void ProcessHostImpl::setPacUrl(const std::string& url) {
   d_impl->context().setPacUrl(StringRef(url));
+}
+
+void ProcessHostImpl::getDiscardableSharedMemoryBytes(getDiscardableSharedMemoryBytesCallback callback)
+{
+    std::size_t bytes = 0;
+    if (auto* man = discardable_memory::DiscardableSharedMemoryManager::Get()) {
+        bytes = man->GetBytesAllocated();
+    }
+    std::move(callback).Run(bytes);
 }
 
 

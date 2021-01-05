@@ -223,6 +223,8 @@ class Toolkit {
         // operational.
 
 
+    virtual std::size_t getDiscardableSharedMemoryBytes() const = 0;
+        // Get the discardable shared memory usage
 
   protected:
     virtual ~Toolkit();

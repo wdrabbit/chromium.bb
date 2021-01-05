@@ -196,6 +196,7 @@ class ProcessHostImpl final : public mojom::ProcessHost
     void unregisterNativeViewForComposition(unsigned int view) override;
 
 
+    void getDiscardableSharedMemoryBytes(getDiscardableSharedMemoryBytesCallback callback) override;
 
 };
 

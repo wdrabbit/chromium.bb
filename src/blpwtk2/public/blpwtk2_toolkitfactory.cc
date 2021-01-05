@@ -38,6 +38,7 @@
 #include <base/strings/utf_string_conversions.h>
 #include <base/win/wrapped_window_proc.h>
 #include "components/printing/renderer/print_render_frame_helper.h"
+#include <cc/tiles/tile_manager.h>
 #include <content/child/font_warmup_win.h>
 #include <content/public/app/content_main_runner.h>
 #include <content/renderer/render_frame_impl.h>
@@ -132,6 +133,10 @@ Toolkit* ToolkitFactory::create(const ToolkitCreateParams& params)
     Statics::isRendererIOThreadEnabled = params.isRendererIOThreadEnabled();
     Statics::rendererUIEnabled = params.rendererUIEnabled();
     Statics::discardableSharedMemorySizeLimit = params.getDiscardableSharedMemorySizeLimit();
+
+    if (size_t limit = params.getTotalTileMemoryLimit()) {
+        cc::TileManager::setTotalTileMemoryLimit(limit);
+    }
 
     // If this process is the host, then set the environment variable that
     // subprocesses will use to determine which SubProcessMain module should

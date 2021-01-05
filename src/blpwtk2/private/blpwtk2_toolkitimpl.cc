@@ -848,6 +848,15 @@ int ToolkitImpl::setTimeZone(const StringRef& zoneId)
     }
     return 0;
 }
+std::size_t ToolkitImpl::getDiscardableSharedMemoryBytes() const
+{
+    if(Profile* prof = ProfileImpl::anyInstance()) {
+        return prof->getDiscardableSharedMemoryBytes();
+    }
+    return 0;
+}
+
+
 
 // patch section: embedder ipc
 void ToolkitImpl::opaqueMessageToRendererAsync(int pid, const StringRef &message)

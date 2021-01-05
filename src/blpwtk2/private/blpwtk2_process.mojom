@@ -149,6 +149,9 @@ interface ProcessHost {
     [Sync]
     opaqueMessageToBrowserSync(string msg) => (string response);
 
+    [Sync]
+    getDiscardableSharedMemoryBytes() => (uint32 bytes);
+
 
     // patch section: renderer ui
     registerNativeViewForComposition(uint32 view);

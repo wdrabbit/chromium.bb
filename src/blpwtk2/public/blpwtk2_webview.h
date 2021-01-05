@@ -334,6 +334,15 @@ class WebView
     virtual String printToPDF() = 0;
         // TODO(imran)
 
+    virtual std::size_t getDefaultTileMemoryLimit() const = 0;
+        // Get the default memory limit for Tile rasterization
+    virtual std::size_t getTileMemoryBytes() const = 0;
+        // Get the memory used for Tile rasterization
+    virtual void overrideTileMemoryLimit(std::size_t limit) = 0;
+        // Override the default memory limit for Tile rasterization
+    virtual void setTag(const char* pTag) = 0;
+        // Set the tag for diagnostics
+
   protected:
     virtual ~WebView();
         // Destroy this WebView.  Note that clients of blpwtk2 should use the

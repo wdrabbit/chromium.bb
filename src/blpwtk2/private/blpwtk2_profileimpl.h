@@ -222,6 +222,7 @@ class ProfileImpl : public Profile, public mojom::ProcessClient {
     void clearWebCache() override;
 
 
+    std::size_t getDiscardableSharedMemoryBytes() override;
 
 };
 

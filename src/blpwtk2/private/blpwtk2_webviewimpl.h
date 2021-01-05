@@ -295,6 +295,10 @@ class WebViewImpl final : public WebView,
     // patch section: docprinter
     String printToPDF() override;
 
+    std::size_t getDefaultTileMemoryLimit() const override;
+    std::size_t getTileMemoryBytes() const override;
+    void overrideTileMemoryLimit(std::size_t limit) override;
+    void setTag(const char* pTag) override;
 
 
 };

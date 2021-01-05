@@ -482,6 +482,11 @@ void ProfileImpl::clearWebCache()
 }
 
 
+std::size_t ProfileImpl::getDiscardableSharedMemoryBytes()
+{
+    uint32_t bytes;
+    return d_hostPtr->getDiscardableSharedMemoryBytes(&bytes) ? bytes: 0;
+}
 
 }  // close namespace blpwtk2
 
