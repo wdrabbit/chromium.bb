@@ -75,6 +75,12 @@ struct ToolkitCreateParamsImpl final
 
 
 
+    // patch section: discardable sharedmem
+
+
+    // patch section: memory diagnostics
+
+
     // patch section: embedder ipc
     bool d_browserV8Enabled;
 
@@ -115,6 +121,13 @@ ToolkitCreateParamsImpl::ToolkitCreateParamsImpl()
     , d_isNativeViewManipulationAsync(false)
     , d_discardableSharedMemorySizeLimit(0)
     , d_totalTileMemoryLimit(0)
+
+
+
+    // patch section: discardable sharedmem
+
+
+    // patch section: memory diagnostics
 
 
     // patch section: embedder ipc

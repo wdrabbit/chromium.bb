@@ -908,6 +908,18 @@ bool WebViewProxy::validateClient()
     return true;
 }
 
+
+
+// patch section: msg interception
+void WebViewProxy::didInterceptMessage()
+{
+    if (d_delegate) {
+        d_delegate->didInterceptMessage(this);
+    }
+}
+
+
+// patch section: devtools integration
 void WebViewProxy::devToolsAgentHostAttached()
 {
     if (d_delegate) {
@@ -922,13 +934,8 @@ void WebViewProxy::devToolsAgentHostDetached()
     }
 }
 
-void WebViewProxy::didInterceptMessage()
-{
-    if (d_delegate) {
-        d_delegate->didInterceptMessage(this);
-    }
-}
 
+// patch section: memory diagnostics
 content::RenderWidget* WebViewProxy::getRenderWidget() const {
     content::RenderView *rv =
         content::RenderView::FromRoutingID(d_renderViewRoutingId);
@@ -965,6 +972,8 @@ void WebViewProxy::setTag(const char* pTag) {
         return render_widget->setTag(std::string(pTag));
     }
 }
+
+
 
 }  // close namespace blpwtk2
 

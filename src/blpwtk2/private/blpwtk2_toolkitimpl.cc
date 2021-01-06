@@ -858,6 +858,12 @@ std::size_t ToolkitImpl::getDiscardableSharedMemoryBytes() const
 
 
 
+// patch section: custom timezone
+
+
+// patch section: memory diagnostics
+
+
 // patch section: embedder ipc
 void ToolkitImpl::opaqueMessageToRendererAsync(int pid, const StringRef &message)
 {
