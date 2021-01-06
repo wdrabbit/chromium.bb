@@ -288,13 +288,19 @@ class ToolkitCreateParams
     // patch section: renderer ui
     BLPWTK2_EXPORT void setRendererUIEnabled(bool rendererUIEnabled);
 
+
+    // patch section: log message handler
     BLPWTK2_EXPORT void setLogThrottleType(LogThrottleType throttleType);
 
+
+    // patch section: memory diagnostics
     BLPWTK2_EXPORT void setTotalTileMemoryLimit(std::size_t limit);
         // Set the tile rasterization memory limit used by all webviews
 
     std::size_t getTotalTileMemoryLimit() const;
         // Get the tile rasterization memory limit used by all webviews
+
+
 
     // ACCESSORS
     ThreadMode threadMode() const;

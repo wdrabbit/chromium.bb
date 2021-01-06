@@ -215,7 +215,10 @@ class ToolkitImpl : public Toolkit {
     void setIsolate(v8::EmbedderHeapTracer *tracer) override;
 
 
+    // patch section: memory diagnostics
     std::size_t getDiscardableSharedMemoryBytes() const override;
+
+
 
 };
 

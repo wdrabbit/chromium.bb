@@ -70,15 +70,15 @@ struct ToolkitCreateParamsImpl final
     ToolkitDelegate* d_delegate;
     bool d_rendererIOThreadEnabled;
     bool d_isNativeViewManipulationAsync;
-    size_t d_discardableSharedMemorySizeLimit;
-    size_t d_totalTileMemoryLimit;
 
 
 
     // patch section: discardable sharedmem
+    size_t d_discardableSharedMemorySizeLimit;
 
 
     // patch section: memory diagnostics
+    size_t d_totalTileMemoryLimit;
 
 
     // patch section: embedder ipc
@@ -119,15 +119,15 @@ ToolkitCreateParamsImpl::ToolkitCreateParamsImpl()
     , d_delegate(nullptr)
     , d_rendererIOThreadEnabled(false)
     , d_isNativeViewManipulationAsync(false)
-    , d_discardableSharedMemorySizeLimit(0)
-    , d_totalTileMemoryLimit(0)
 
 
 
     // patch section: discardable sharedmem
+    , d_discardableSharedMemorySizeLimit(0)
 
 
     // patch section: memory diagnostics
+    , d_totalTileMemoryLimit(0)
 
 
     // patch section: embedder ipc
@@ -517,6 +517,9 @@ bool ToolkitCreateParams::isRendererIOThreadEnabled() const
     return d_impl->d_rendererIOThreadEnabled;
 }
 
+
+
+// patch section: memory diagnostics
 void ToolkitCreateParams::setTotalTileMemoryLimit(std::size_t limit) {
     d_impl->d_totalTileMemoryLimit = limit;
 }

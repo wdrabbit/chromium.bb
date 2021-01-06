@@ -571,6 +571,7 @@ void BrowserContextImpl::clearWebCache()
 }
 
 
+// patch section: memory diagnostics
 std::size_t BrowserContextImpl::getDiscardableSharedMemoryBytes()
 {
     std::size_t bytes = 0;
@@ -579,6 +580,8 @@ std::size_t BrowserContextImpl::getDiscardableSharedMemoryBytes()
     }
     return bytes;
 }
+
+
 
 // content::BrowserContext overrides
 std::unique_ptr<content::ZoomLevelDelegate>

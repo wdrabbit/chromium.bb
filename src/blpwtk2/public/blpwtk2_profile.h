@@ -186,8 +186,11 @@ class Profile
     // patch section: web cache
     virtual void clearWebCache() = 0;
 
+
+    // patch section: memory diagnostics
     virtual std::size_t getDiscardableSharedMemoryBytes() = 0;
         // Get the discardable shared memory usage
+
 
 
   protected:
