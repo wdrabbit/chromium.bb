@@ -679,6 +679,9 @@ ToolkitImpl::ToolkitImpl(const std::string&              dictionaryPath,
 ToolkitImpl::~ToolkitImpl()
 {
     LOG(INFO) << "Shutting down threads...";
+
+    Statics::isTerminating = true;
+
     ScopeExitGuard exit_guard{EXIT_TIME_OUT_MS};
 
     detachGPUDataLogObserver();
@@ -829,11 +832,17 @@ void ToolkitImpl::setWebViewHostObserver(WebViewHostObserver* observer)
     }
 }
 
+void ToolkitImpl::onTerminating()
+{
+    Statics::isTerminating = true;
+}
+
 void ToolkitImpl::setTraceThreshold(unsigned int timeoutMS)
 {
     d_messagePump->setTraceThreshold(timeoutMS);
 }
 
+// patch section: custom timezone
 int ToolkitImpl::setTimeZone(const StringRef& zoneId)
 {
     auto *timeZone = icu::TimeZone::createTimeZone(
@@ -848,10 +857,6 @@ int ToolkitImpl::setTimeZone(const StringRef& zoneId)
     }
     return 0;
 }
-
-
-
-// patch section: custom timezone
 
 
 // patch section: memory diagnostics
