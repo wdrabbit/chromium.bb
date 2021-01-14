@@ -200,6 +200,9 @@ class ProcessHostImpl final : public mojom::ProcessHost
     void getDiscardableSharedMemoryBytes(getDiscardableSharedMemoryBytesCallback callback) override;
 
 
+    // patch section: gpu
+
+
 
 };
 

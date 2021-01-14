@@ -582,6 +582,9 @@ std::size_t BrowserContextImpl::getDiscardableSharedMemoryBytes()
 }
 
 
+// patch section: gpu
+
+
 
 // content::BrowserContext overrides
 std::unique_ptr<content::ZoomLevelDelegate>

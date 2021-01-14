@@ -664,6 +664,9 @@ void ProcessHostImpl::unregisterNativeViewForComposition(unsigned int view)
 }
 
 
+// patch section: gpu
+
+
 
 }  // namespace blpwtk2
 

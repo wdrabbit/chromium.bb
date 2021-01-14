@@ -192,6 +192,9 @@ class Profile
         // Get the discardable shared memory usage
 
 
+    // patch section: gpu
+
+
 
   protected:
     virtual ~Profile();

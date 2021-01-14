@@ -166,6 +166,9 @@ class BrowserContextImpl final : public base::RefCounted<BrowserContextImpl>
     std::size_t getDiscardableSharedMemoryBytes() override;
 
 
+    // patch section: gpu
+
+
 
     // content::BrowserContext overrides
     std::unique_ptr<content::ZoomLevelDelegate> CreateZoomLevelDelegate(

@@ -888,6 +888,9 @@ v8::Platform *ToolkitImpl::getV8Platform()
 }
 
 
+// patch section: gpu
+
+
 // patch section: multi-heap tracer
 int ToolkitImpl::addV8HeapTracer(EmbedderHeapTracer *tracer)
 {

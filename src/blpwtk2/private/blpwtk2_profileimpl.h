@@ -226,6 +226,9 @@ class ProfileImpl : public Profile, public mojom::ProcessClient {
     std::size_t getDiscardableSharedMemoryBytes() override;
 
 
+    // patch section: gpu
+
+
 
 };
 

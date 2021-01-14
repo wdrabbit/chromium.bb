@@ -490,6 +490,9 @@ std::size_t ProfileImpl::getDiscardableSharedMemoryBytes()
 }
 
 
+// patch section: gpu
+
+
 
 }  // close namespace blpwtk2
 
