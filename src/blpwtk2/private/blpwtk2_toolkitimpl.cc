@@ -639,7 +639,9 @@ ToolkitImpl::ToolkitImpl(const std::string&              dictionaryPath,
     // Start pumping the message loop.
     startMessageLoop(sandboxInfo);
 
-    attachGPUDataLogObserver();
+    if (isHost) {
+        attachGPUDataLogObserver();
+    }
 
     if (Statics::isRendererMainThreadMode()) {
         // Initialize the renderer.
@@ -889,6 +891,16 @@ v8::Platform *ToolkitImpl::getV8Platform()
 
 
 // patch section: gpu
+void ToolkitImpl::getGpuMode(GpuMode& currentMode, GpuMode& startupMode, int& crashCount) const
+{
+    if(Profile* prof = ProfileImpl::anyInstance()) {
+        prof->getGpuMode(currentMode, startupMode, crashCount);
+        return;
+    };
+    currentMode = GpuMode::kUnknown;
+    startupMode = GpuMode::kUnknown;
+    crashCount = 0;
+}
 
 
 // patch section: multi-heap tracer
