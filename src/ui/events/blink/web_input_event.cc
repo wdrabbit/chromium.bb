@@ -393,8 +393,6 @@ blink::WebMouseEvent MakeWebMouseEventFromUiEvent(const MouseEvent& event) {
       break;
     }
     case ET_MOUSE_ENTERED:
-      type = blink::WebInputEvent::Type::kMouseEnter;
-      break;
     case ET_MOUSE_MOVED:
     case ET_MOUSE_DRAGGED:
       type = blink::WebInputEvent::Type::kMouseMove;
