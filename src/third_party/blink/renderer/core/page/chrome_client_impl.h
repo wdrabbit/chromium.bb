@@ -145,7 +145,7 @@ class CORE_EXPORT ChromeClientImpl final : public ChromeClient {
   void MainFrameScrollOffsetChanged(LocalFrame& main_frame) const override;
   void ResizeAfterLayout() const override;
   void MainFrameLayoutUpdated() const override;
-  void ShowMouseOverURL(LocalFrame&, const HitTestResult&) override;
+  void ShowMouseOverURL(const HitTestResult&) override;
   void SetToolTip(LocalFrame&, const String&, TextDirection) override;
   void DispatchViewportPropertiesDidChange(
       const ViewportDescription&) const override;
@@ -291,9 +291,6 @@ class CORE_EXPORT ChromeClientImpl final : public ChromeClient {
   // Returns WebAutofillClient associated with the WebLocalFrame. This takes and
   // returns nullable.
   WebAutofillClient* AutofillClientFromFrame(LocalFrame*);
-
-  UntracedMember<Node> m_lastMouseOverNode; // weak pointer
-  bool m_lastTooltipHadText;
 
   WebViewImpl* web_view_;  // Weak pointer.
   HeapHashSet<WeakMember<PopupOpeningObserver>> popup_opening_observers_;

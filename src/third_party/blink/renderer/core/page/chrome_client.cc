@@ -214,7 +214,7 @@ void ChromeClient::MouseDidMoveOverElement(LocalFrame& frame,
     }
   }
 
-  ShowMouseOverURL(frame, result);
+  ShowMouseOverURL(result);
 
   if (result.GetScrollbar())
     ClearToolTip(frame);
