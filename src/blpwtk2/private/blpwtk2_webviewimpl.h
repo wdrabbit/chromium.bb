@@ -103,11 +103,11 @@ class WebViewImpl final : public WebView,
     bool d_altDragRubberbandingEnabled;
     int d_lastNCHitTestResult;
     int d_hostId;
-    ui::Compositor* d_gpuCompositor = nullptr;
 
 
 
     // patch section: gpu
+    ui::Compositor* d_gpuCompositor = nullptr;
 
 
     // patch section: fullscreen mode
