@@ -543,6 +543,15 @@ public:
     std::vector<std::string> d_contextMenuSpellReplacements;
     std::string d_misspelledWord;
 
+
+
+    // patch section: spellcheck
+
+
+    // patch section: fullscreen mode
+
+
+
     Shell(HWND mainWnd,
           HWND urlEntryWnd,
           HWND findEntryHwnd,

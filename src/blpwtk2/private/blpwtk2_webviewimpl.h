@@ -105,6 +105,15 @@ class WebViewImpl final : public WebView,
     int d_hostId;
     ui::Compositor* d_gpuCompositor = nullptr;
 
+
+
+    // patch section: gpu
+
+
+    // patch section: fullscreen mode
+
+
+
     int createWidget(blpwtk2::NativeView parent);
 
     // blpwtk2::NativeViewWidgetDelegate overrides
