@@ -106,6 +106,7 @@
 // feature 35
 // feature 36
 // feature 37
+#define BLPWTK2_FEATURE_FULLSCREEN_MODE
 // feature 38
 #define BLPWTK2_FEATURE_MEMORY_DIAGNOSTIC
 // feature 39

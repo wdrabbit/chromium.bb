@@ -86,6 +86,7 @@ class WebViewProxy final : public WebView
     void deleteSelection() override;
     void enableNCHitTest(bool enabled) override;
     void onNCHitTestResult(int x, int y, int result) override;
+    void onEnterFullscreenModeResult(bool isFullscreen) override;
     void setNCHitTestRegion(NativeRegion region) override;
     void performCustomContextMenuAction(int actionId) override;
 
@@ -149,6 +150,8 @@ class WebViewProxy final : public WebView
     void focused() override;
     void blurred() override;
     void showContextMenu(const ContextMenuParams& params) override;
+    void enterFullscreenMode() override;
+    void exitFullscreenMode() override;
     void findReply(int  numberOfMatches,
                    int  activeMatchOrdinal,
                    bool finalUpdate) override;
