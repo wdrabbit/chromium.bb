@@ -1,0 +1,13 @@
+{
+  "extends": "../../../../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+  },
+  "references": [
+    { "path": "../../../../scripts/component_bridges"}
+  ],
+  "include": [
+    "*.ts",
+  ]
+}
