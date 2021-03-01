@@ -24,7 +24,7 @@ const base::Feature kNetworkService {
 #else
   "NetworkServiceNotSupported",
 #endif
-      base::FEATURE_ENABLED_BY_DEFAULT
+      base::FEATURE_DISABLED_BY_DEFAULT
 };
 
 const base::Feature kReporting{"Reporting", base::FEATURE_ENABLED_BY_DEFAULT};

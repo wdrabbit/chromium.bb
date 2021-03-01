@@ -35,6 +35,8 @@ MSVC_TOOLSET_VERSION = {
    '2017' : 'VC141',
 }
 
+DEVKIT_VERSION = '88a'
+
 def _HostIsWindows():
   """Returns True if running on a Windows host (including under cygwin)."""
   return sys.platform in ('win32', 'cygwin')
@@ -514,6 +516,8 @@ def Update(force=False, no_download=False):
                     'get_toolchain_if_necessary.py'),
         '--output-json', json_data_file,
       ] + _GetDesiredVsToolchainHashes()
+    base_url = os.environ.get('DEPOT_TOOLS_WIN_TOOLCHAIN_BASE_URL', '')
+    os.environ['DEPOT_TOOLS_WIN_TOOLCHAIN_BASE_URL'] = os.path.join(base_url, DEVKIT_VERSION)
     if force:
       get_toolchain_args.append('--force')
     if no_download:

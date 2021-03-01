@@ -50,17 +50,16 @@ struct WebRect;
 // Provides access to some properties of a DOM element node.
 class BLINK_EXPORT WebElement : public WebNode {
  public:
+  ~WebElement() override;
+
   WebElement() : WebNode() {}
   WebElement(const WebElement& e) = default;
 
   // Returns the empty WebElement if the argument doesn't represent an Element.
   static WebElement FromV8Value(v8::Local<v8::Value>);
 
-  WebElement& operator=(const WebElement& e) {
-    WebNode::Assign(e);
-    return *this;
-  }
-  void Assign(const WebElement& e) { WebNode::Assign(e); }
+  WebElement& operator=(const WebElement& e);
+  void Assign(const WebElement& e);
 
   bool IsFormControlElement() const;
   // If the element is editable, for example by being contenteditable or being

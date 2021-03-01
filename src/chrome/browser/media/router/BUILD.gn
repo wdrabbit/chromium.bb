@@ -59,6 +59,12 @@ static_library("router") {
       "//ui/base:buildflags",
     ]
 
+    if (enable_extensions) {
+      deps += [
+        "//extensions/browser",
+      ]
+    }
+
     public_deps += [ "//components/media_router/common/mojom:logger" ]
 
     sources += [
@@ -159,11 +165,18 @@ if (!is_android) {
       "//chrome/test:test_support",
       "//components/media_router/common/mojom:media_router",
       "//components/media_router/common/mojom:media_router_test_interfaces",
-      "//extensions/browser",
-      "//extensions/common",
       "//testing/gmock",
     ]
+
     public_deps = [ ":router" ]
+
+    if (enable_extensions) {
+      deps += [
+        "//extensions/common",
+        "//extensions/browser",
+      ]
+    }
+
     sources = [
       "test/media_router_mojo_test.cc",
       "test/media_router_mojo_test.h",

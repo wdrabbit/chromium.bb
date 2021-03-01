@@ -4,7 +4,6 @@
 
 import("//build/config/chrome_build.gni")
 import("//build/config/chromecast_build.gni")
-import("//build/config/gclient_args.gni")
 
 declare_args() {
   enable_gvr_services = is_android && !is_chromecast &&
@@ -16,7 +15,8 @@ declare_args() {
 
   # To build with OpenXR support, the OpenXR Loader needs to be pulled to
   # third_party/openxr.
-  enable_openxr = checkout_openxr && is_win
+  #enable_openxr = checkout_openxr && is_win
+  enable_openxr = false
 }
 
 declare_args() {
