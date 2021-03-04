@@ -187,11 +187,16 @@ if (!is_android && !is_mac) {
       ]
       data_deps = [
         "//chrome/app/version_assembly:version_assembly_manifest",
-        "//chrome/browser/web_applications/chrome_pwa_launcher",
         "//chrome/chrome_proxy",
         "//chrome/elevation_service",
         "//chrome/notification_helper",
       ]
+
+      if (enable_extensions) {
+        data_deps += [
+          "//chrome/browser/web_applications/chrome_pwa_launcher",
+        ]
+      }
 
       if (win_console_app) {
         defines += [ "WIN_CONSOLE_APP" ]

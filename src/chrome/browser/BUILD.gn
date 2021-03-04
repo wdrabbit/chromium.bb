@@ -4072,7 +4072,6 @@ static_library("browser") {
       "//chrome/browser/resources:component_extension_resources",
       "//chrome/browser/search:generated",
       "//chrome/browser/ui/color:color_headers",
-      "//chrome/common/apps/platform_apps",
       "//chrome/common/importer:interfaces",
       "//chrome/common/search:generate_chrome_colors_info",
       "//chrome/common/search:generate_colors_info",
@@ -4127,7 +4126,10 @@ static_library("browser") {
       ]
     }
     if (enable_extensions) {
-      deps += [ "//extensions/browser" ]
+      deps += [
+        "//extensions/browser",
+        "//chrome/common/apps/platform_apps",
+      ]
     }
 
     if (is_posix || is_fuchsia) {
@@ -4695,7 +4697,6 @@ static_library("browser") {
       "//chrome/app/theme:chrome_unscaled_resources_grit",
       "//chrome/browser/safe_browsing/chrome_cleaner",
       "//chrome/browser/safe_browsing/chrome_cleaner:public",
-      "//chrome/browser/web_applications/chrome_pwa_launcher:util",
       "//chrome/browser/win/conflicts:module_info",
       "//chrome/chrome_elf:constants",
       "//chrome/chrome_elf:dll_hash",
@@ -4724,6 +4725,13 @@ static_library("browser") {
       "//ui/base:fullscreen_win",
       "//ui/base/cursor",
     ]
+
+    if (enable_extensions) {
+      deps += [
+        "//chrome/browser/web_applications/chrome_pwa_launcher:util",
+      ]
+    }
+
     allow_circular_includes_from +=
         [ "//chrome/browser/safe_browsing/chrome_cleaner" ]
 

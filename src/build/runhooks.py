@@ -28,9 +28,21 @@
 # this script will be forwarded to gyp.
 
 import os, sys, subprocess, gclient_eval
+import vs_toolchain, shutil
 
-scriptDir = os.path.dirname(os.path.realpath(__file__))
+_SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
+_SRC_ROOT = os.path.abspath(os.path.join(_SCRIPT_DIR, os.path.pardir))
+
+# Absolute path to the directory that stores pgo related state files, which
+# specifcies which profile to update and use.
+_PGO_DIR = os.path.join(_SRC_ROOT, 'chrome', 'build')
+
+# Absolute path to the directory that stores pgo profiles.
+_PGO_PROFILE_DIR = os.path.join(_PGO_DIR, 'pgo_profiles')
+
+# Configurations
+_checkout_pgo_profiles = True
 
 def execInShell(cmd):
   print "Executing '" + " ".join(cmd) + "'"
@@ -41,12 +53,19 @@ def execInShell(cmd):
 def dummyVar(s):
   return s
 
+def config(s):
+  if s == 'checkout_pgo_profiles':
+    return _checkout_pgo_profiles
+  else:
+    raise Exception("Invalid config name %s" % s)
 
 def loadDepInfo(solution):
   name = solution['name']
   deps = solution['deps_file']
   scope = {
     'Var': dummyVar,
+    'Str': gclient_eval.ConstantString,
+    'Config': config
   }
   execfile(os.path.join(name, deps), scope)
   return {
@@ -84,9 +103,52 @@ def get_vars(dep_vars):
   result.update(dep_vars)
   return result
 
+
+# function copied from update_pgo_profiles.py
+def _read_profile_name(target):
+  """Read profile name given a target.
+
+  Args:
+    target(str): The target name, such as win32, mac.
+
+  Returns:
+    Name of the profile to update and use, such as:
+    chrome-win32-master-67ad3c89d2017131cc9ce664a1580315517550d1.profdata.
+  """
+  state_file = os.path.join(_PGO_DIR, '%s.pgo.txt' % target)
+  with open(state_file, 'r') as f:
+    profile_name = f.read().strip()
+
+  return profile_name
+
 def main(args):
+  global _checkout_pgo_profiles
+  toolchainDir = None
+
+  useToolchainDevkit = bool(int(os.environ.get('DEPOT_TOOLS_WIN_TOOLCHAIN', '1')))
+  if useToolchainDevkit:
+    base_url = os.environ.get('DEPOT_TOOLS_WIN_TOOLCHAIN_BASE_URL', '')
+    toolchainDir = os.path.join(base_url, vs_toolchain.DEVKIT_VERSION)
+
   # Need to be in the root directory
-  os.chdir(os.path.join(scriptDir, os.pardir, os.pardir))
+  os.chdir(os.path.join(_SCRIPT_DIR, os.pardir, os.pardir))
+
+  # Copy PGO profiles
+  if toolchainDir:
+    _checkout_pgo_profiles = False
+
+    if not os.path.exists(_PGO_PROFILE_DIR):
+      os.mkdir(_PGO_PROFILE_DIR)
+
+    for target in ['win32', 'win64']:
+      print("Copying PGO profile for %s" % target)
+      profile_name = _read_profile_name(target)
+      dest_path = os.path.join(_PGO_PROFILE_DIR, profile_name)
+      src_path = os.path.join(toolchainDir, 'pgo_profiles', profile_name)
+      shutil.copyfile(src_path, dest_path)
+
+  else:
+    _checkout_pgo_profiles = True
 
   scope = {}
   execfile('.gclient', scope)

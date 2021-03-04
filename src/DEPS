@@ -118,7 +118,7 @@ vars = {
   'checkout_clang_coverage_tools': False,
 
   # Fetch the pgo profiles to optimize official builds.
-  'checkout_pgo_profiles': False,
+  'checkout_pgo_profiles': Config('checkout_pgo_profiles'),
 
   # Fetch clang-tidy into the same bin/ directory as our clang binary.
   'checkout_clang_tidy': False,
@@ -159,6 +159,8 @@ vars = {
   # qemu on linux-arm64 machines.
   'checkout_fuchsia_for_arm64_host': False,
 
+  'checkout_blpwtk2': True,
+
   # By default, download the fuchsia sdk from the fuchsia GCS bucket.
   'fuchsia_sdk_bucket': 'fuchsia',
 
@@ -170,8 +172,8 @@ vars = {
   'cros_boards': Str(''),
   'cros_boards_with_qemu_images': Str(''),
   # Building for CrOS is only supported on linux currently.
-  'checkout_simplechrome': '"{cros_boards}" != ""',
-  'checkout_simplechrome_with_vms': '"{cros_boards_with_qemu_images}" != ""',
+  'checkout_simplechrome': '"{cros_boards}" != "" and not checkout_blpwtk2',
+  'checkout_simplechrome_with_vms': '"{cros_boards_with_qemu_images}" != "" and not checkout_blpwtk2',
 
   # ANGLE's deps are relative to the angle_root variable.
   'angle_root': 'src/third_party/angle',
@@ -195,7 +197,6 @@ vars = {
   'skia_git': 'https://skia.googlesource.com',
   'swiftshader_git': 'https://swiftshader.googlesource.com',
   'webrtc_git': 'https://webrtc.googlesource.com',
-  'checkout_blpwtk2': True,
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling Skia
   # and whatever else without interference from each other.

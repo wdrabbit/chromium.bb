@@ -86,10 +86,12 @@ def _update(args):
       download_from_google_storage.GSUTIL_DEFAULT_PATH)
   gs_path = 'gs://' + args.gs_url_base.strip('/') + '/' + profile_name
   code = gsutil.call('cp', gs_path, profile_path)
+  """
   if code != 0:
     raise RuntimeError('gsutil failed to download "%s"' % gs_path)
 
   _remove_unused_profiles(profile_name)
+  """
 
 
 def _get_profile_path(args):
