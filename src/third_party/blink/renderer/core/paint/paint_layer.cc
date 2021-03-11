@@ -197,6 +197,7 @@ PaintLayer::PaintLayer(LayoutBoxModelObject& layout_object)
 #if DCHECK_IS_ON()
       layer_list_mutation_allowed_(true),
 #endif
+      suppress_needs_compositing_inputs_update_(false),
       layout_object_(&layout_object),
       parent_(nullptr),
       previous_(nullptr),
@@ -1038,6 +1039,10 @@ PaintLayer* PaintLayer::EnclosingDirectlyCompositableLayer(
 }
 
 void PaintLayer::SetNeedsCompositingInputsUpdate(bool mark_ancestor_flags) {
+  if (suppress_needs_compositing_inputs_update_) {
+    return;
+  }
+
   SetNeedsCompositingInputsUpdateInternal();
 
   // TODO(chrishtr): These are a bit of a heavy hammer, because not all
@@ -3260,6 +3265,9 @@ void PaintLayer::StyleDidChange(StyleDifference diff,
   // Overlay scrollbars can make this layer self-painting so we need
   // to recompute the bit once scrollbars have been updated.
   UpdateSelfPaintingLayer();
+
+  suppress_needs_compositing_inputs_update_ =
+    GetLayoutObject().StyleRef().BBSuppressNeedsCompositingInputUpdate();
 
   if (!diff.CompositingReasonsChanged() &&
       !RuntimeEnabledFeatures::CompositeAfterPaintEnabled()) {

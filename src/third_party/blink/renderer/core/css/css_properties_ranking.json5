@@ -696,6 +696,7 @@
         "content-visibility",
         "origin-trial-test-property",
         "overflow-clip-margin",
+        "-bb-suppress-needs-compositing-input-update",
     ],
     "properties": {}
 }
