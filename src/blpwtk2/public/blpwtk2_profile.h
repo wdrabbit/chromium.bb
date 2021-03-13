@@ -156,6 +156,7 @@ class Profile
 
 
     // patch section: web cache
+    virtual void clearWebCache() = 0;
 
 
     // patch section: memory diagnostics
