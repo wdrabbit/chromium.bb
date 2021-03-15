@@ -38,11 +38,17 @@ def generateBuildNumber(contentVersion):
           "git rev-parse --abbrev-ref HEAD")
 
   match = re.match('release/trml/(\\d*)', currentBranchName)
+  releaseBranchNumber = None
 
-  if not match:
+  if match:
+    releaseBranchNumber = int(match.group(1))
+
+  elif currentBranchName == 'release/candidate':
+    releaseBranchNumber = 1
+
+  else:
     raise Exception("You must be in a release branch to start a devkit build")
 
-  releaseBranchNumber = int(match.group(1))
 
   # Iterate through all tags and find the latest build number with a matching
   # version of Content and a matching release branch number.  If we don't find
