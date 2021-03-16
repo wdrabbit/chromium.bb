@@ -61,6 +61,10 @@ class BLPWTK2_EXPORT ToolkitDelegate {
                                     LONG_PTR *result) = 0;
 
 
+    // patch section: renderer ui
+    virtual void onModalLoop() = 0;
+
+
 
 };
 

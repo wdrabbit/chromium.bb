@@ -521,6 +521,8 @@ class ToolkitDelegate : public blpwtk2::ToolkitDelegate {
 
         return false;
     }
+
+    void onModalLoop() override {}
 };
 
 class Shell : public blpwtk2::WebViewDelegate {
