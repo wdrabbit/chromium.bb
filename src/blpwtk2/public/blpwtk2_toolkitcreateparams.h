@@ -65,7 +65,13 @@ class BLPWTK2_EXPORT ToolkitDelegate {
     virtual void onModalLoop() = 0;
 
 
+    // patch section: performance monitor
+    virtual int registerMetric(
+                            const char     *name,
+                            const char     *comment,
+                            unsigned int    reportFrequency) = 0;
 
+    virtual void unregisterMetrics() = 0;
 };
 
                         // =========================
