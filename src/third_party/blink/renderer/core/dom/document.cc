@@ -3265,10 +3265,6 @@ void Document::Shutdown() {
   dom_window_ = nullptr;
   execution_context_ = nullptr;
 
-  // blpwtk2: Clear the DOM window to prevent dangling ExecutionContext when
-  // invoking Node::GetExecutionContext()
-  ClearDOMWindow();
-
   document_outlive_time_reporter_ =
       std::make_unique<DocumentOutliveTimeReporter>(this);
 }
