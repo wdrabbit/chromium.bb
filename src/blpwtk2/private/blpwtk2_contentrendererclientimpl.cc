@@ -41,6 +41,7 @@
 #include <content/child/font_warmup_win.h>
 #include <content/public/renderer/render_frame.h>
 #include <content/public/renderer/render_thread.h>
+#include <content/public/renderer/render_view.h>
 #include <net/base/net_errors.h>
 #include <mojo/public/cpp/bindings/binder_map.h>
 #include "services/service_manager/public/cpp/bind_source_info.h"
@@ -52,6 +53,8 @@
 #include <third_party/blink/public/web/web_plugin_params.h>
 #include <third_party/skia/include/ports/SkTypeface_win.h>
 #include <ui/gfx/win/direct_write.h>
+
+#include <components/printing/renderer/print_render_frame_helper.h>
 
 #include <sstream>
 
@@ -99,6 +102,15 @@ void ContentRendererClientImpl::RenderFrameCreated(
 
 
     // patch section: printing
+
+    // Create an instance of PrintWebViewHelper.  This is an observer that is
+    // registered with the RenderFrame.  The RenderFrameImpl's destructor
+    // will call OnDestruct() on all observers, which will delete this
+    // instance of PrintWebViewHelper.
+    new printing::PrintRenderFrameHelper(
+            render_frame,
+            std::unique_ptr<printing::PrintRenderFrameHelper::Delegate>(
+                printing::PrintRenderFrameHelper::CreateEmptyDelegate()));
 
 
 

@@ -326,6 +326,8 @@ class WebView
 
 
     // patch section: doc printer
+    virtual String printToPDF() = 0;
+        // TODO(imran)
 
 
     // patch section: memory diagnostics

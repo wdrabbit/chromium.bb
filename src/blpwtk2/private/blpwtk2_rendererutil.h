@@ -26,6 +26,7 @@
 #include <blpwtk2_config.h>
 #include <blpwtk2_webview.h>
 #include <blpwtk2_string.h>
+#include <content/public/renderer/render_view.h>
 
 namespace content {
 
@@ -50,7 +51,8 @@ struct RendererUtil
                                    const WebView::DrawParams&  params);
 
 
-    // patch section: print to pdf
+    // patch section: docprinter
+    static String printToPDF(content::RenderView* renderView);
 
 
 

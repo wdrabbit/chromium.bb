@@ -72,6 +72,8 @@ namespace blink {
         bool isOverwriteModeEnabled(Document* document);
         void toggleOverwriteMode(Document* document);
 
+        void allowPrint(long value);
+
         void Trace(Visitor*) const override;
 
         explicit BBWindowHooks(LocalDOMWindow *window);

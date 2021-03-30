@@ -184,6 +184,7 @@ class ProfileImpl : public Profile, public mojom::ProcessClient {
 
 
     // patch section: printing
+    void setDefaultPrinter(const StringRef& name) override;
 
 
     // patch section: diagnostics

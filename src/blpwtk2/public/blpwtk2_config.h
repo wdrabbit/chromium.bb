@@ -45,6 +45,7 @@
 // feature 1
 #define BLPWTK2_FEATURE_SCREENPRINT
 // feature 2
+#define BLPWTK2_FEATURE_PRINTPDF
 // feature 3
 #define BLPWTK2_FEATURE_CRTHANDLER
 // feature 4
@@ -58,6 +59,7 @@
 #define BLPWTK2_FEATURE_TIMEZONE
 // feature 10
 // feature 11
+#define BLPWTK2_FEATURE_DOCPRINTER
 // feature 12
 #define BLPWTK2_FEATURE_CUSTOMFONTS
 // feature 13

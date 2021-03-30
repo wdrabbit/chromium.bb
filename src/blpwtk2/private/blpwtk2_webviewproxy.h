@@ -118,6 +118,7 @@ class WebViewProxy final : public WebView
 
     void setSecurityToken(v8::Isolate *isolate,
                           v8::Local<v8::Value> token) override;
+    String printToPDF() override;
 
     std::size_t getDefaultTileMemoryLimit() const override;
     std::size_t getTileMemoryBytes() const override;
