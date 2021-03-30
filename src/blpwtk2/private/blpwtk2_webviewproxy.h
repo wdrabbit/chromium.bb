@@ -157,6 +157,8 @@ class WebViewProxy final : public WebView
                              const StringRef& url) override;
     void didParentStatus(int status, NativeView parent) override;
     void didInterceptMessage() override;
+    void devToolsAgentHostAttached() override;
+    void devToolsAgentHostDetached() override;
 };
 
 }  // close namespace blpwtk2

@@ -123,6 +123,9 @@ class WebViewHostImpl final : private WebViewImplClient
                    bool     finalUpdate) override;
     void didInterceptMessage(WebView *source) override;
 
+    void devToolsAgentHostAttached(WebView *source) override;
+    void devToolsAgentHostDetached(WebView *source) override;
+
     // Mojo callbacks
     void onNCDragAck();
     void onInterceptMessageAck();

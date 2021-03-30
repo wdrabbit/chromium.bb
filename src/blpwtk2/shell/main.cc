@@ -445,6 +445,9 @@ class ToolkitDelegate : public blpwtk2::ToolkitDelegate {
 
         return false;
     }
+
+    void onDebugBreak() override {}
+    void onDebugResume() override {}
 };
 
 class Shell : public blpwtk2::WebViewDelegate {

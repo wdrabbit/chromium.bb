@@ -289,6 +289,18 @@ void WebViewHostImpl::didInterceptMessage(WebView *source)
     }
 }
 
+void WebViewHostImpl::devToolsAgentHostAttached(WebView *source)
+{
+    DCHECK(source == d_impl);
+    d_clientPtr->devToolsAgentHostAttached();
+}
+
+void WebViewHostImpl::devToolsAgentHostDetached(WebView *source)
+{
+    DCHECK(source == d_impl);
+    d_clientPtr->devToolsAgentHostDetached();
+}
+
 // Mojo callbacks
 void WebViewHostImpl::onNCDragAck()
 {
