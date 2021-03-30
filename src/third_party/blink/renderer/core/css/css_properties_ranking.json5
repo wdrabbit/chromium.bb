@@ -700,6 +700,7 @@
         "origin-trial-test-property",
         "overflow-clip-margin",
         "-bb-lcd-background-color",
+        "-bb-suppress-needs-compositing-input-update",
     ],
     "properties": {}
 }

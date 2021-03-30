@@ -749,6 +749,7 @@ enum CSSSampleId {
     kBbLcdBackgroundColor = 694,
 
     // patch section: suppress-needs-compositing-input-update (feature 695)
+    kBbSuppressNeedsCompositingInputUpdate = 695,
 
 
 
