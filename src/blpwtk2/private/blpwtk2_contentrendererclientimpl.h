@@ -24,6 +24,8 @@
 #define INCLUDED_BLPWTK2_CONTENTRENDERERCLIENTIMPL_H
 
 #include <blpwtk2_config.h>
+
+#include <components/spellcheck/renderer/spellcheck_provider.h>
 #include <content/public/renderer/content_renderer_client.h>
 #include <content/public/renderer/render_thread_observer.h>
 #include <mojo/public/cpp/bindings/pending_receiver.h>
@@ -36,6 +38,8 @@
 namespace service_manager {
 struct BindSourceInfo;
 }
+
+class SpellCheck;
 
 namespace blpwtk2 {
 class ForwardingService;
@@ -50,6 +54,8 @@ class ContentRendererClientImpl : public content::ContentRendererClient,
                                   public service_manager::Service,
                                   public service_manager::LocalInterfaceProvider
 {
+    std::unique_ptr<SpellCheck> d_spellcheck;
+
   public:
     ContentRendererClientImpl();
     ~ContentRendererClientImpl() final;
@@ -58,7 +64,6 @@ class ContentRendererClientImpl : public content::ContentRendererClient,
 
     void RenderViewCreated(content::RenderView *render_view) override;
         // Notifies that a new RenderView has been created.
-
     void RenderFrameCreated(content::RenderFrame *render_frame) override;
 
     void PrepareErrorPage(content::RenderFrame* render_frame,
