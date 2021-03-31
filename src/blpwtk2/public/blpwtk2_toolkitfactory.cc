@@ -132,6 +132,7 @@ Toolkit* ToolkitFactory::create(const ToolkitCreateParams& params)
     Statics::toolkitDelegate = params.delegate();
     Statics::isRendererIOThreadEnabled = params.isRendererIOThreadEnabled();
     Statics::discardableSharedMemorySizeLimit = params.getDiscardableSharedMemorySizeLimit();
+    Statics::rendererUIEnabled = params.rendererUIEnabled();
 
     if (size_t limit = params.getTotalTileMemoryLimit()) {
         cc::TileManager::setTotalTileMemoryLimit(limit);

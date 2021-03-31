@@ -39,6 +39,7 @@ class RenderWidget;
 namespace blpwtk2 {
 
 class WebFrameImpl;
+class WebViewProxyDelegate;
 class ProfileImpl;
 
                         // ==================
@@ -51,6 +52,7 @@ class WebViewProxy final : public WebView
     // DATA
     WebViewClient *d_client;
     WebViewDelegate *d_delegate;
+    WebViewProxyDelegate *d_proxyDelegate;
 
     ProfileImpl *d_profile;
     int d_renderViewRoutingId;
@@ -135,6 +137,8 @@ class WebViewProxy final : public WebView
   public:
     explicit WebViewProxy(WebViewDelegate *delegate, ProfileImpl *profile);
     ~WebViewProxy() final;
+
+    void setProxyDelegate(WebViewProxyDelegate *proxyDelegate);
 
     // blpwtk2::WebViewClientDelegate overrides
     void setClient(WebViewClient *client) override;

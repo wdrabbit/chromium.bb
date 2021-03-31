@@ -319,7 +319,7 @@ void OSExchangeDataProviderWin::SetCustomData(const FORMATETC& format,
                                               const base::string16& data) {
   STGMEDIUM storage = CreateStorageForString(base::UTF16ToUTF8(data));
   data_->contents_.push_back(DataObjectImpl::StoredDataInfo::TakeStorageMedium(
-        format, storage));
+      format, storage));
 }
 
 void OSExchangeDataProviderWin::SetURL(const GURL& url,

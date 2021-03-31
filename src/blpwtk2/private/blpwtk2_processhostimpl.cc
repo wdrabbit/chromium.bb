@@ -47,6 +47,7 @@
 #include <components/discardable_memory/service/discardable_shared_memory_manager.h>
 #include <content/public/browser/browser_task_traits.h>
 #include <content/public/browser/browser_thread.h>
+#include <ui/gfx/win/rendering_window_manager.h>
 
 
 
@@ -614,6 +615,17 @@ void ProcessHostImpl::opaqueMessageToBrowserSync(const std::string&             
 
 
 // patch section: renderer ui
+void ProcessHostImpl::registerNativeViewForComposition(unsigned int view)
+{
+  gfx::RenderingWindowManager::GetInstance()->RegisterParent(
+      reinterpret_cast<NativeView>(view));
+}
+
+void ProcessHostImpl::unregisterNativeViewForComposition(unsigned int view)
+{
+  gfx::RenderingWindowManager::GetInstance()->UnregisterParent(
+      reinterpret_cast<NativeView>(view));
+}
 
 
 // patch section: gpu

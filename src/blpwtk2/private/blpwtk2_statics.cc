@@ -43,6 +43,7 @@ bool Statics::isRendererIOThreadEnabled = false;
 WebViewHostObserver* Statics::webViewHostObserver = 0;
 ToolkitDelegate *Statics::toolkitDelegate = nullptr;
 size_t Statics::discardableSharedMemorySizeLimit = 0;
+bool Statics::rendererUIEnabled = false;
 
 static int lastRoutingId = 0;
 

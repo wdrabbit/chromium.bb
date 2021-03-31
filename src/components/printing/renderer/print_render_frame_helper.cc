@@ -2347,6 +2347,7 @@ void PrintRenderFrameHelper::GetPrintSettingsFromUser(
   params.margin_type = margin_type;
   params.is_scripted = is_scripted;
   params.is_modifiable = !IsPrintingNodeOrPdfFrame(frame, node);
+  params.owner_wnd = frame->View()->GetHwnd();
 
   GetPrintManagerHost()->DidShowPrintDialog();
 

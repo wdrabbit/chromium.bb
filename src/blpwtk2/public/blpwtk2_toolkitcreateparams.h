@@ -66,6 +66,10 @@ class BLPWTK2_EXPORT ToolkitDelegate {
                             const char     *name,
                             const char     *comment,
                             unsigned int    reportFrequency) = 0;
+    // patch section: renderer ui
+    virtual void onModalLoop() = 0;
+
+
 
     virtual void unregisterMetrics() = 0;
 };
@@ -291,6 +295,7 @@ class ToolkitCreateParams
 
 
     // patch section: renderer ui
+    BLPWTK2_EXPORT void setRendererUIEnabled(bool rendererUIEnabled);
 
 
     // patch section: log message handler
@@ -349,7 +354,7 @@ class ToolkitCreateParams
 
 
     // patch section: renderer ui
-
+    bool rendererUIEnabled() const;
 
 
 };
