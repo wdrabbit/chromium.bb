@@ -49,6 +49,9 @@ WebViewCreateParams::WebViewCreateParams()
     d_impl->rerouteMouseWheelToAnyRelatedWindow = false;
     d_impl->messageInterceptionEnabled = false;
     d_impl->processId = 0;
+    d_impl->takeKeyboardFocusOnMouseDown = true;
+    d_impl->takeLogicalFocusOnMouseDown = true;
+    d_impl->activateWindowOnMouseDown = true;
 }
 
 WebViewCreateParams::WebViewCreateParams(const WebViewCreateParams& src)
@@ -60,6 +63,21 @@ WebViewCreateParams::WebViewCreateParams(const WebViewCreateParams& src)
 WebViewCreateParams::~WebViewCreateParams()
 {
     delete d_impl;
+}
+
+void WebViewCreateParams::setTakeKeyboardFocusOnMouseDown(bool enable)
+{
+    d_impl->takeKeyboardFocusOnMouseDown = enable;
+}
+
+void WebViewCreateParams::setTakeLogicalFocusOnMouseDown(bool enable)
+{
+    d_impl->takeLogicalFocusOnMouseDown = enable;
+}
+
+void WebViewCreateParams::setActivateWindowOnMouseDown(bool enable)
+{
+    d_impl->activateWindowOnMouseDown = enable;
 }
 
 void WebViewCreateParams::setDOMPasteEnabled(bool enable)
@@ -85,6 +103,21 @@ void WebViewCreateParams::setRerouteMouseWheelToAnyRelatedWindow(bool rerouteMou
 void WebViewCreateParams::setMessageInterceptionEnabled(bool enable)
 {
     d_impl->messageInterceptionEnabled = enable;
+}
+
+bool WebViewCreateParams::takeKeyboardFocusOnMouseDown() const
+{
+    return d_impl->takeKeyboardFocusOnMouseDown;
+}
+
+bool WebViewCreateParams::takeLogicalFocusOnMouseDown() const
+{
+    return d_impl->takeLogicalFocusOnMouseDown;
+}
+
+bool WebViewCreateParams::activateWindowOnMouseDown() const
+{
+    return d_impl->activateWindowOnMouseDown;
 }
 
 bool WebViewCreateParams::domPasteEnabled() const
