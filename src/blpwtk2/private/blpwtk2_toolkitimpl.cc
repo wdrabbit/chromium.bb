@@ -46,7 +46,6 @@
 #include "base/feature_list.h"
 #include <base/command_line.h>
 #include <base/task/single_thread_task_executor.h>
-#include <base/logging.h>
 #include <base/path_service.h>
 #include <base/process/memory.h>
 #include <base/synchronization/waitable_event.h>
@@ -83,6 +82,7 @@
 #include <third_party/icu/source/i18n/unicode/timezone.h>
 #include <ui/base/ime/init/input_method_initializer.h>
 #include <ui/base/l10n/l10n_util.h>
+#include <base/logging.h>
 #include <v8/include/v8.h>
 
 #include <atomic>
