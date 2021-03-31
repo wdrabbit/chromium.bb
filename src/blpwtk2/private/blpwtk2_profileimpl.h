@@ -213,6 +213,7 @@ class ProfileImpl : public Profile, public mojom::ProcessClient {
 
 
     // patch section: gpu
+    void getGpuMode(GpuMode& currentMode, GpuMode& startupMode, int& crashCount) const override;
 
 
 
