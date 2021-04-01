@@ -2188,10 +2188,11 @@ void PrintRenderFrameHelper::IPCProcessed() {
   }
 }
 
-bool PrintRenderFrameHelper::InitPrintSettings(bool fit_to_paper_size) {
+bool PrintRenderFrameHelper::InitPrintSettings(bool fit_to_paper_size, HWND owner_wnd) {
   mojom::PrintPagesParams settings;
   settings.params = mojom::PrintParams::New();
-  GetPrintManagerHost()->GetDefaultPrintSettings(&settings.params);
+
+  GetPrintManagerHost()->GetDefaultPrintSettings(reinterpret_cast<uint32_t>(owner_wnd), &settings.params);
 
   // Check if the printer returned any settings, if the settings is empty, we
   // can safely assume there are no printer drivers configured. So we safely
@@ -2217,7 +2218,8 @@ bool PrintRenderFrameHelper::CalculateNumberOfPages(blink::WebLocalFrame* frame,
                                                     uint32_t* number_of_pages) {
   DCHECK(frame);
   bool fit_to_paper_size = !IsPrintingNodeOrPdfFrame(frame, node);
-  if (!InitPrintSettings(fit_to_paper_size)) {
+
+  if (!InitPrintSettings(fit_to_paper_size, frame->View()->GetHwnd())) {
     notify_browser_of_print_failure_ = false;
     GetPrintManagerHost()->ShowInvalidPrinterSettingsError();
     return false;
@@ -2347,7 +2349,7 @@ void PrintRenderFrameHelper::GetPrintSettingsFromUser(
   params.margin_type = margin_type;
   params.is_scripted = is_scripted;
   params.is_modifiable = !IsPrintingNodeOrPdfFrame(frame, node);
-  params.owner_wnd = frame->View()->GetHwnd();
+  params.owner_wnd = reinterpret_cast<uint32_t>(frame->View()->GetHwnd());
 
   GetPrintManagerHost()->DidShowPrintDialog();
 
