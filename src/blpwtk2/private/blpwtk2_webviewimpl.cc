@@ -43,6 +43,7 @@
 #include <chrome/browser/printing/print_view_manager.h>
 #include <components/printing/renderer/print_render_frame_helper.h>
 #include <content/browser/renderer_host/render_widget_host_view_base.h>
+#include <content/browser/renderer_host/render_widget_host_impl.h>
 #include <content/public/browser/host_zoom_map.h>
 #include <content/public/browser/media_capture_devices.h>
 #include <content/public/browser/media_stream_request.h>
@@ -245,9 +246,10 @@ void WebViewImpl::onRenderViewHostMadeCurrent(content::RenderViewHost *renderVie
 
 
     // patch section: rubberband
-#ifdef BB_RENDER_VIEW_HOST_SUPPORTS_RUBBERBANDING
-    renderViewHost->EnableAltDragRubberbanding(d_altDragRubberbandingEnabled);
-#endif
+    auto *rwh = static_cast<content::RenderWidgetHostImpl*>(renderViewHost->GetWidget());
+    if (rwh) {
+        rwh->EnableAltDragRubberbanding(d_altDragRubberbandingEnabled);
+    }
 
 
     d_renderViewHost->GetWidget()->GetView()->SetBackgroundColor(SK_ColorBLACK);
@@ -673,11 +675,11 @@ void WebViewImpl::enableAltDragRubberbanding(bool enabled)
     DCHECK(!d_wasDestroyed);
     d_altDragRubberbandingEnabled = enabled;
 
-#ifdef BB_RENDER_VIEW_HOST_SUPPORTS_RUBBERBANDING
-    if (d_webContents->GetRenderViewHost()) {
-        d_webContents->GetRenderViewHost()->EnableAltDragRubberbanding(enabled);
+    auto *rwh = static_cast<content::RenderWidgetHostImpl*>(
+            d_renderViewHost->GetWidget());
+    if (rwh) {
+        rwh->EnableAltDragRubberbanding(enabled);
     }
-#endif
 }
 
 bool WebViewImpl::forceStartRubberbanding(int x, int y)
