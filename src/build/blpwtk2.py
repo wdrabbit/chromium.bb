@@ -205,6 +205,9 @@ def parseArgs(argv):
   # Disable mDNS support.
   applyVariableToEnvironment('GN_DEFINES', 'enable_mdns', 'false')
 
+  # Disable FieldTrials variations
+  applyVariableToEnvironment('GN_DEFINES', 'fieldtrial_testing_like_official_build', 'true')
+
   if gn_type == 'debug' or not gn_type:
     if gn_mode == 'shared' or not gn_mode:
       createBuildCmd(gn_shared, 'shared', 'debug', bb_version, 'static_crt', arch_type)
