@@ -105,7 +105,7 @@ def applyVariableToEnvironment(env, var, val):
   os.environ[env] = " ".join(envItems)
 
 
-def createBuildCmd(gn_cmds, gn_mode, gn_type, bb_version, crt_mode, arch_type):
+def createBuildCmd(gn_cmds, gn_mode, gn_type, bb_version, crt_mode, is_64bit):
   if gn_type == 'debug':
     applyVariableToEnvironment('GN_DEFINES', 'is_debug', 'true')
     applyVariableToEnvironment('GN_DEFINES', 'is_official_build', 'false')
@@ -135,9 +135,13 @@ def createBuildCmd(gn_cmds, gn_mode, gn_type, bb_version, crt_mode, arch_type):
   if bb_version:
     version = ' bb_version=\\\"' + bb_version + '\\\"'
 
+  # Select target architecture
   suffix = ''
-  if arch_type == 'x64':
+  if is_64bit:
     suffix = '64'
+    applyVariableToEnvironment('GN_DEFINES', 'target_cpu', '\\\"x64\\\"')
+  else:
+    applyVariableToEnvironment('GN_DEFINES', 'target_cpu', '\\\"x86\\\"')
 
   if crt_mode == 'static_crt':
     gn_cmd = ' gen out/' + gn_mode + '_' + gn_type + suffix + ' --args="' \
@@ -148,16 +152,13 @@ def createBuildCmd(gn_cmds, gn_mode, gn_type, bb_version, crt_mode, arch_type):
 
   gn_cmds.append(gn_cmd)
 
-def parseArgs(argv):
+def parseArgs(argv, is_64bit):
   gn_shared = []
   gn_static = []
   gn_mode = None
   gn_type = None
   bb_version = None
   crt_mode = None
-
-  # Generate 32-bit binaries and libraries by default
-  arch_type = 'x86'
 
   if argv:
     for i in xrange(0, len(argv)):
@@ -168,14 +169,9 @@ def parseArgs(argv):
         gn_type = arg
       elif arg == 'dynamic_crt' or arg == 'static_crt':
         crt_mode = arg
-      elif arg == 'x86' or arg == 'x64':
-        arch_type = arg
       elif arg == '--bb_version':
         with open('../devkit_version.txt', 'r') as f:
           bb_version = f.readline()
-
-  # Select target architecture
-  applyVariableToEnvironment('GN_DEFINES', 'target_cpu', '\\\"' + arch_type + '\\\"')
 
   # Disable NativeClient, print preview, browser extensiion, paint preview
   # and VR support
@@ -210,16 +206,16 @@ def parseArgs(argv):
 
   if gn_type == 'debug' or not gn_type:
     if gn_mode == 'shared' or not gn_mode:
-      createBuildCmd(gn_shared, 'shared', 'debug', bb_version, 'static_crt', arch_type)
+      createBuildCmd(gn_shared, 'shared', 'debug', bb_version, 'static_crt', is_64bit)
 
   if gn_type == 'release' or not gn_type:
     if gn_mode == 'shared' or not gn_mode:
-      createBuildCmd(gn_shared, 'shared', 'release', bb_version, 'static_crt', arch_type)
+      createBuildCmd(gn_shared, 'shared', 'release', bb_version, 'static_crt', is_64bit)
     if gn_mode == 'static' or not gn_mode:
       if crt_mode == 'static_crt' or not crt_mode:
-        createBuildCmd(gn_static, 'static', 'release', bb_version, 'static_crt', arch_type)
-      if crt_mode == 'dynamic_crt' or not crt_mode:
-        createBuildCmd(gn_static, 'static', 'release', bb_version, 'dynamic_crt', arch_type)
+        createBuildCmd(gn_static, 'static', 'release', bb_version, 'static_crt', is_64bit)
+      if crt_mode == 'dynamic_crt':
+        createBuildCmd(gn_static, 'static', 'release', bb_version, 'dynamic_crt', is_64bit)
 
   return gn_shared, gn_static, gn_type
 
@@ -232,24 +228,25 @@ def main(argv):
     print "Please install depot_tools."
     return 1
 
-  gn_shared, gn_static, gn_type = parseArgs(argv)
+  for is_64bit in [False, True]:
+    gn_shared, gn_static, gn_type = parseArgs(argv, is_64bit)
 
-  if len(gn_shared)  > 0:
-    if gn_type:
-      print "Generating GN shared %s build tree" % gn_type
-    else:
-      print "Generating GN shared debug and release build trees"
-  sys.stdout.flush()
+    if len(gn_shared)  > 0:
+      if gn_type:
+        print "Generating %d-bit shared %s build tree" % (64 if is_64bit else 32, gn_type)
+      else:
+        print "Generating %d-bit shared debug and release build trees" % (64 if is_64bit else 32)
+    sys.stdout.flush()
 
-  generateBuildTree(gn_shared)
+    generateBuildTree(gn_shared)
 
-  if len(gn_static)  > 0:
-    if gn_type:
-      print "Generating GN static %s build tree" % gn_type
-    else:
-      print "Generating GN static release build trees"
-  sys.stdout.flush()
-  generateBuildTree(gn_static)
+    if len(gn_static)  > 0:
+      if gn_type:
+        print "Generating %d-bit static %s build tree" % (64 if is_64bit else 32, gn_type)
+      else:
+        print "Generating %d-bit static release build trees" % (64 if is_64bit else 32)
+    sys.stdout.flush()
+    generateBuildTree(gn_static)
 
   return 0
 
