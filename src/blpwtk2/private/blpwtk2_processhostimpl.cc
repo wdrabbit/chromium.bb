@@ -156,7 +156,7 @@ ProcessHostImpl::Impl::~Impl() {
 }
 
 // ACCESSORS
-inline base::ProcessId ProcessHostImpl::Impl::processId() const {
+extern inline base::ProcessId ProcessHostImpl::Impl::processId() const {
   return d_processId;
 }
 
@@ -174,7 +174,7 @@ ProcessHostImpl::Impl::renderProcessHost() const {
 }
 
 // MANIPULATORS
-inline base::ProcessId& ProcessHostImpl::Impl::processId() {
+extern inline base::ProcessId& ProcessHostImpl::Impl::processId() {
   return d_processId;
 }
 
